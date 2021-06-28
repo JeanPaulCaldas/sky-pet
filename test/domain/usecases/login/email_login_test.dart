@@ -2,32 +2,32 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sky_pet/domain/models/user.dart';
-import 'package:sky_pet/domain/repository/login_repository.dart';
 import 'package:sky_pet/domain/usecases/login/email_login.dart';
 
-class MockLoginRepository extends Mock implements LoginRepository {}
+import 'mock_login_repository.dart';
 
 void main() {
   EmailLogin usecase;
-  MockLoginRepository mockRepository;
+  MockLoginRepository mockLoginRepository;
 
   setUp(() {
-    mockRepository = MockLoginRepository();
-    usecase = EmailLogin(mockRepository);
+    mockLoginRepository = MockLoginRepository();
+    usecase = EmailLogin(mockLoginRepository);
   });
 
   final tUser = User(id: 'a897da8', name: 'test name');
 
   test('should login with email', () async {
     //arrange
-    when(mockRepository.emailLogin('', ''))
+    when(mockLoginRepository.emailLogin(any, any))
         .thenAnswer((_) async => Right(tUser));
 
     //act
-    final result = await usecase.execute('', '');
+    final result = await usecase(tUser.id, tUser.name);
 
     //assert
     expect(result, Right(tUser));
-    verify(mockRepository.emailLogin('email', 'password'));
+    verify(mockLoginRepository.emailLogin(tUser.id, tUser.name));
+    verifyNoMoreInteractions(mockLoginRepository);
   });
 }

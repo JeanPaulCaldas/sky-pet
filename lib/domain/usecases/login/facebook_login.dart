@@ -3,12 +3,12 @@ import 'package:sky_pet/core/failure.dart';
 import 'package:sky_pet/domain/models/user.dart';
 import 'package:sky_pet/domain/repositories/login_repository.dart';
 
-class EmailLogin {
+class FacebookLogin {
   final LoginRepository repository;
 
-  EmailLogin(this.repository);
+  FacebookLogin(this.repository);
 
-  Future<Either<Failure, User>> call(String email, String password) async {
-    return await repository.emailLogin(email, password);
+  Future<Either<Failure, User>> call() async {
+    return await repository.facebookLogin();
   }
 }
