@@ -1,0 +1,1 @@
+class FirebaseException implements Exception {}

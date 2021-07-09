@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:sky_pet/core/failure.dart';
+import 'package:sky_pet/core/failures.dart';
 import 'package:sky_pet/domain/models/user.dart';
 
 abstract class LoginRepository {
