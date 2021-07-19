@@ -5,6 +5,7 @@ import 'package:sky_pet/core/failures.dart';
 import 'package:sky_pet/domain/usecases/auth/email_sign_in.dart';
 import 'package:sky_pet/domain/usecases/auth/email_sign_up.dart';
 import 'package:sky_pet/presentation/login/bloc/auth_login_bloc.dart';
+import 'package:bloc_test/bloc_test.dart';
 
 class MockEmailSignIn extends Mock implements EmailSignIn {}
 
@@ -14,6 +15,9 @@ main() {
   AuthLoginBloc bloc;
   MockEmailSignIn mockEmailSignIn;
   MockEmailSignUp mockEmailSignUp;
+
+  final String tEmail = 'mail@mail.com';
+  final String tPass = 'securePass';
 
   setUp(() {
     mockEmailSignIn = MockEmailSignIn();
@@ -26,21 +30,45 @@ main() {
     expect(bloc.state, equals(Empty()));
   });
 
-  group('Auth Sign In', () {
-    final String tEmail = 'mail@mail.com';
-    final String tPass = 'securePass';
-
-    test('should emit [Error] state when invalid credentials', () async {
-      //arrange
-      when(mockEmailSignIn.call(any, any))
+  group('Auth Sign In FirebaseFailure', () {
+    setUp(() {
+      when(mockEmailSignIn(any, any))
           .thenAnswer((_) async => Left(FirebaseFailure()));
-      
-      //assert
-      expectLater(bloc.state,
-          emitsInOrder([Empty(), Error(message: FIREBASE_FAILURE_MESSAGE)]));
-
-      //act
-      bloc.add(AuthSignIn(email: tEmail, password: tPass));
     });
+
+    blocTest(
+      'should emit [Error] state when invalid credentials',
+      build: () => bloc,
+      act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+      skip: 1,
+      expect: () => [Error(message: FIREBASE_FAILURE_MESSAGE)],
+    );
+
+    blocTest<AuthLoginBloc, AuthLoginState>(
+      'should emits [Error] when AuthSignIn is added.',
+      build: () => bloc,
+      act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+      skip: 1,
+      expect: () => [isA<Error>()],
+    );
+  });
+
+  group('Auth Sign In', () {
+    setUp(() {
+      when(mockEmailSignIn(any, any)).thenAnswer((_) async => Right(true));
+    });
+
+    blocTest<AuthLoginBloc, AuthLoginState>(
+        'emits [Loaded] when AuthSignIn is added.',
+        build: () => bloc,
+        act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+        skip: 1,
+        expect: () => [isA<Loaded>()],
+        verify: (_) => verify(mockEmailSignIn(tEmail, tPass)));
+
+    blocTest('should emits [Loading, Loaded] when successful',
+        build: () => bloc,
+        act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+        expect: () => [Loading(), Loaded(loged: true)]);
   });
 }

@@ -28,12 +28,14 @@ class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
   Stream<AuthLoginState> mapEventToState(
     AuthLoginEvent event,
   ) async* {
-    // TODO: implement mapEventToState
     if (event is AuthSignIn) {
+      yield Loading();
       final authEither = await emailSignIn.call(event.email, event.password);
       yield* authEither.fold((l) async* {
         yield Error(message: FIREBASE_FAILURE_MESSAGE);
-      }, (r) => throw UnimplementedError());
+      }, (r) async* {
+        yield Loaded(loged: r);
+      });
     }
   }
 }
