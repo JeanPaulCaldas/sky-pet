@@ -30,18 +30,30 @@ main() {
     expect(bloc.state, equals(Empty()));
   });
 
-  group('Auth Sign In FirebaseFailure', () {
+  group('Auth Sign In Failure', () {
     setUp(() {
       when(mockEmailSignIn(any, any))
           .thenAnswer((_) async => Left(FirebaseFailure()));
     });
 
     blocTest(
-      'should emit [Error] state when invalid credentials',
+      'should emit [Error] state with propper message when firebase failure',
       build: () => bloc,
       act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
       skip: 1,
       expect: () => [Error(message: FIREBASE_FAILURE_MESSAGE)],
+    );
+
+    blocTest<AuthLoginBloc, AuthLoginState>(
+      'should emits [Error] state with propper message when network failure',
+      build: () {
+        when(mockEmailSignIn(any, any))
+            .thenAnswer((_) async => Left(NetworkFailure()));
+        return bloc;
+      },
+      act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+      skip: 1,
+      expect: () => [Error(message: NETWORK_FAILURE_MESSAGE)],
     );
 
     blocTest<AuthLoginBloc, AuthLoginState>(
@@ -51,6 +63,13 @@ main() {
       skip: 1,
       expect: () => [isA<Error>()],
     );
+
+    blocTest<AuthLoginBloc, AuthLoginState>(
+      'should emits [Loading, Error] when AuthSignIn is added.',
+      build: () => bloc,
+      act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+      expect: () => [isA<Loading>(), isA<Error>()],
+    );
   });
 
   group('Auth Sign In', () {
@@ -59,7 +78,7 @@ main() {
     });
 
     blocTest<AuthLoginBloc, AuthLoginState>(
-        'emits [Loaded] when AuthSignIn is added.',
+        'should emits [Loaded] when AuthSignIn is added.',
         build: () => bloc,
         act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
         skip: 1,
@@ -69,6 +88,6 @@ main() {
     blocTest('should emits [Loading, Loaded] when successful',
         build: () => bloc,
         act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
-        expect: () => [Loading(), Loaded(loged: true)]);
+        expect: () => [isA<Loading>(), isA<Loaded>()]);
   });
 }
