@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl({this.remoteDataSource, this.networkInfo});
 
-  Future<Either<Failure, bool>> _callDataSourceMethod(_Chooser method) async {
+  Future<Either<Failure, void>> _callDataSourceMethod(_Chooser method) async {
     if (!await networkInfo.isConnected) return Left(NetworkFailure());
     try {
       return Right(await method());
@@ -24,28 +24,40 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> emailSignUp(
+  Future<Either<Failure, bool>> credentialSignUp(
       String email, String password) async {
     return _callDataSourceMethod(
         () => remoteDataSource.emailSignUp(email, password));
   }
 
   @override
-  Future<Either<Failure, bool>> emailSignIn(
+  Future<Either<Failure, bool>> credentialSignIn(
       String email, String password) async {
     return _callDataSourceMethod(
         () => remoteDataSource.emailSignIn(email, password));
   }
 
   @override
-  Future<Either<Failure, User>> socialAuthFacebook() {
+  Future<Either<Failure, User>> facebookSignIn() {
     // TODO: implement facebookLogin
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, User>> socialAuthGoogle() {
+  Future<Either<Failure, User>> googleSignIn() {
     // TODO: implement googleLogin
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<User> getUser() {
+    // TODO: implement getUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() {
+    // TODO: implement signOut
     throw UnimplementedError();
   }
 }

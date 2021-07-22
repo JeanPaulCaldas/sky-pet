@@ -5,8 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sky_pet/core/failures.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_in.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_up.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 
 part 'auth_login_event.dart';
 part 'auth_login_state.dart';
@@ -15,8 +15,8 @@ const String FIREBASE_FAILURE_MESSAGE = 'Firebase failure';
 const String NETWORK_FAILURE_MESSAGE = 'Network failure';
 
 class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
-  final EmailSignIn emailSignIn;
-  final EmailSignUp emailSignUp;
+  final CredentialSignIn emailSignIn;
+  final CredentialSignUp emailSignUp;
 
   AuthLoginBloc({
     this.emailSignIn,

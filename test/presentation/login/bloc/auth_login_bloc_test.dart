@@ -2,14 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sky_pet/core/failures.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_in.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_up.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 import 'package:sky_pet/presentation/login/bloc/auth_login_bloc.dart';
 import 'package:bloc_test/bloc_test.dart';
 
-class MockEmailSignIn extends Mock implements EmailSignIn {}
+class MockEmailSignIn extends Mock implements CredentialSignIn {}
 
-class MockEmailSignUp extends Mock implements EmailSignUp {}
+class MockEmailSignUp extends Mock implements CredentialSignUp {}
 
 main() {
   AuthLoginBloc bloc;

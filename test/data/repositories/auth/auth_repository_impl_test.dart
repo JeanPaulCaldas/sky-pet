@@ -43,7 +43,7 @@ void main() {
       //arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       //act
-      repository.emailSignIn(tEmail, tPass);
+      repository.credentialSignIn(tEmail, tPass);
       //assert
       verify(mockNetworkInfo.isConnected);
     });
@@ -58,7 +58,7 @@ void main() {
             when(mockRemoteDataSource.emailSignIn(any, any))
                 .thenAnswer((_) async => true);
             //act
-            final result = await repository.emailSignIn(tEmail, tPass);
+            final result = await repository.credentialSignIn(tEmail, tPass);
             //assert
             verify(mockRemoteDataSource.emailSignIn(tEmail, tPass));
             expect(result, equals(Right(true)));
@@ -71,7 +71,7 @@ void main() {
             when(mockRemoteDataSource.emailSignIn(tEmail, tPass))
                 .thenThrow(FirebaseException());
             //act
-            final result = await repository.emailSignIn(tEmail, tPass);
+            final result = await repository.credentialSignIn(tEmail, tPass);
             //assert
             verify(mockRemoteDataSource.emailSignIn(tEmail, tPass));
             expect(result, equals(Left(FirebaseFailure())));
@@ -85,7 +85,7 @@ void main() {
               'should return network failure when network info is not connected',
               () async {
             //act
-            final result = await repository.emailSignIn(tEmail, tPass);
+            final result = await repository.credentialSignIn(tEmail, tPass);
             //assert
             verifyZeroInteractions(mockRemoteDataSource);
             expect(result, equals(Left(NetworkFailure())));
@@ -98,7 +98,7 @@ void main() {
       //arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       //act
-      repository.emailSignUp(tEmail, tPass);
+      repository.credentialSignUp(tEmail, tPass);
       //assert
       verify(mockNetworkInfo.isConnected);
     });
@@ -113,7 +113,7 @@ void main() {
             when(mockRemoteDataSource.emailSignUp(any, any))
                 .thenAnswer((_) async => true);
             //act
-            final response = await repository.emailSignUp(tEmail, tPass);
+            final response = await repository.credentialSignUp(tEmail, tPass);
             //assert
             verify(mockRemoteDataSource.emailSignUp(tEmail, tPass));
             verifyNoMoreInteractions(mockRemoteDataSource);
@@ -127,7 +127,7 @@ void main() {
             when(mockRemoteDataSource.emailSignUp(tEmail, tPass))
                 .thenThrow(FirebaseException());
             //act
-            final result = await repository.emailSignUp(tEmail, tPass);
+            final result = await repository.credentialSignUp(tEmail, tPass);
             //assert
             verify(mockRemoteDataSource.emailSignUp(tEmail, tPass));
             verifyNoMoreInteractions(mockRemoteDataSource);
@@ -142,7 +142,7 @@ void main() {
               'should return network failure when network info is not connected',
               () async {
             //act
-            final result = await repository.emailSignUp(tEmail, tPass);
+            final result = await repository.credentialSignUp(tEmail, tPass);
             //assert
             verifyZeroInteractions(mockRemoteDataSource);
             expect(result, equals(Left(NetworkFailure())));

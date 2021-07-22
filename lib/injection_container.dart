@@ -5,8 +5,8 @@ import 'package:sky_pet/core/network_info.dart';
 import 'package:sky_pet/data/datasources/auth_remote_data_source.dart';
 import 'package:sky_pet/data/repositories/auth/auth_repository_impl.dart';
 import 'package:sky_pet/domain/repositories/auth_repository.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_in.dart';
-import 'package:sky_pet/domain/usecases/auth/email_sign_up.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
+import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 import 'package:sky_pet/presentation/login/bloc/auth_login_bloc.dart';
 
 final sl = GetIt.I;
@@ -16,8 +16,8 @@ void init() {
   sl.registerFactory(() => AuthLoginBloc(emailSignIn: sl(), emailSignUp: sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => EmailSignIn(sl()));
-  sl.registerLazySingleton(() => EmailSignUp(sl()));
+  sl.registerLazySingleton(() => CredentialSignIn(sl()));
+  sl.registerLazySingleton(() => CredentialSignUp(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
