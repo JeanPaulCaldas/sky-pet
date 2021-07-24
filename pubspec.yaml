@@ -42,11 +42,17 @@ dependencies:
   firebase_auth: 1.4.1
 
   bloc: 7.0.0
-  #flutter_bloc: 7.0.0
+  flutter_bloc: 7.0.0
+
+  form_inputs:
+    path: ./packages/form_inputs
+  
+  formz: ^0.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
   mockito: 5.0.10
   bloc_test: 8.0.0
 

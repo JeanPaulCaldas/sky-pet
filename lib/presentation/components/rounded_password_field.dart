@@ -4,9 +4,11 @@ import 'package:sky_pet/presentation/components/text_field_container.dart';
 import '../constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
+  final String errorText;
   final ValueChanged<String> onChanged;
   const RoundedPasswordField({
     Key key,
+    this.errorText,
     this.onChanged,
   }) : super(key: key);
 
@@ -15,8 +17,9 @@ class RoundedPasswordField extends StatelessWidget {
     return TextFieldContainer(
       child: TextField(
         obscureText: true,
+        onChanged: onChanged,
         decoration: InputDecoration(
-            hintText: 'Password',
+            hintText: 'Contraseña',
             icon: Icon(
               Icons.lock,
               color: kPrimaryColor,
@@ -25,7 +28,8 @@ class RoundedPasswordField extends StatelessWidget {
               Icons.visibility,
               color: kPrimaryColor,
             ),
-            border: InputBorder.none),
+            border: InputBorder.none,
+            errorText: errorText),
       ),
     );
   }

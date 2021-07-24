@@ -1,13 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:sky_pet/core/failures.dart';
-import 'package:sky_pet/domain/models/user.dart';
+import 'package:sky_pet/domain/models/user_model.dart';
 
 abstract class AuthRepository {
-  Stream<User> getUser();
+  Stream<UserModel> get user;
 
   Future<Either<Failure, void>> credentialSignUp(String email, String password);
 
   Future<Either<Failure, void>> credentialSignIn(String email, String password);
+
+  Future<Either<Failure, UserModel>> get currentUser;
 
   Future<Either<Failure, void>> googleSignIn();
 

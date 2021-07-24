@@ -1,23 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sky_pet/presentation/components/already_have_an_account_check.dart';
 import 'package:sky_pet/presentation/components/rounded_button.dart';
 import 'package:sky_pet/presentation/components/rounded_input_field.dart';
 import 'package:sky_pet/presentation/components/rounded_password_field.dart';
+import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
 import 'package:sky_pet/presentation/signup/sign_up_screen.dart';
+import 'package:formz/formz.dart';
 
 class LoginScreen extends StatelessWidget {
-  static String routeId = 'login';
-
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
-
     Size size = MediaQuery.of(context).size;
-    bool showModal = false;
-    String email;
-    String password;
 
     return Scaffold(
       body: Center(
@@ -45,18 +40,9 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                RoundedInputField(
-                  hintText: 'Your Email',
-                  onChanged: (value) {},
-                ),
-                RoundedPasswordField(
-                  onChanged: (value) {},
-                ),
-                RoundedButton(
-                    title: 'LOGIN',
-                    onPressed: () async {
-                      try {} catch (e) {}
-                    }),
+                _EmailInput(),
+                _PasswordInput(),
+                _SignInButton(),
                 SizedBox(
                   height: size.height * 0.04,
                 ),
@@ -70,6 +56,57 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _EmailInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignInCubit, SignInState>(
+        buildWhen: (previous, current) => previous.email != current.email,
+        builder: (context, state) {
+          return RoundedInputField(
+            hintText: 'Tu e-mail',
+            textInputType: TextInputType.emailAddress,
+            errorText: state.email.invalid ? 'e-mail no válido' : null,
+            onChanged: (value) =>
+                context.read<SignInCubit>().emailChanged(value),
+          );
+        });
+  }
+}
+
+class _PasswordInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignInCubit, SignInState>(
+        buildWhen: (previous, current) => previous.password != current.password,
+        builder: (context, state) {
+          return RoundedPasswordField(
+            errorText: state.password.invalid ? 'contraseña no válida' : null,
+            onChanged: (value) =>
+                context.read<SignInCubit>().passwordChanged(value),
+          );
+        });
+  }
+}
+
+class _SignInButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignInCubit, SignInState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return state.status.isSubmissionInProgress
+            ? const CircularProgressIndicator()
+            : RoundedButton(
+                title: 'LOGIN',
+                onPressed: state.status.isValidated
+                    ? () => context.read<SignInCubit>().signInWithCredentials()
+                    : null,
+              );
+      },
     );
   }
 }

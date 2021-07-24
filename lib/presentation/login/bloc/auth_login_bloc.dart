@@ -15,14 +15,14 @@ const String FIREBASE_FAILURE_MESSAGE = 'Firebase failure';
 const String NETWORK_FAILURE_MESSAGE = 'Network failure';
 
 class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
-  final CredentialSignIn emailSignIn;
-  final CredentialSignUp emailSignUp;
+  final CredentialSignIn credentialSignIn;
+  final CredentialSignUp credentialSignUp;
 
   AuthLoginBloc({
-    this.emailSignIn,
-    this.emailSignUp,
-  })  : assert(emailSignIn != null),
-        assert(emailSignUp != null),
+    this.credentialSignIn,
+    this.credentialSignUp,
+  })  : assert(credentialSignIn != null),
+        assert(credentialSignUp != null),
         super(Empty());
 
   @override
@@ -31,17 +31,17 @@ class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
   ) async* {
     if (event is AuthSignIn) {
       yield Loading();
-      final authEither = await emailSignIn(event.email, event.password);
+      final authEither = await credentialSignIn(event.email, event.password);
       yield* _eitherLoadedOrErrorState(authEither);
     }
   }
 
   Stream<AuthLoginState> _eitherLoadedOrErrorState(
-    Either<Failure, bool> authEither,
+    Either<Failure, void> authEither,
   ) async* {
     yield authEither.fold(
       (failure) => Error(message: _mapFailureToMessage[failure.runtimeType]),
-      (r) => Loaded(loged: r),
+      (r) => Loaded(),
     );
   }
 

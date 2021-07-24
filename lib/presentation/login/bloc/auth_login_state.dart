@@ -11,14 +11,7 @@ class Empty extends AuthLoginState {}
 
 class Loading extends AuthLoginState {}
 
-class Loaded extends AuthLoginState {
-  final bool loged;
-
-  Loaded({this.loged});
-
-  @override
-  List<Object> get props => [loged];
-}
+class Loaded extends AuthLoginState {}
 
 class Error extends AuthLoginState {
   final String message;

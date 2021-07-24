@@ -23,7 +23,7 @@ main() {
     mockEmailSignIn = MockEmailSignIn();
     mockEmailSignUp = MockEmailSignUp();
     bloc = AuthLoginBloc(
-        emailSignIn: mockEmailSignIn, emailSignUp: mockEmailSignUp);
+        credentialSignIn: mockEmailSignIn, credentialSignUp: mockEmailSignUp);
   });
 
   test('initial state should be empty', () {

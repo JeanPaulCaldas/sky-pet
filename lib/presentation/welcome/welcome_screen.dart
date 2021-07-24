@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sky_pet/presentation/components/rounded_button.dart';
 import 'package:sky_pet/presentation/constants.dart';
-import 'package:sky_pet/presentation/login/login_screen.dart';
+import 'package:sky_pet/presentation/login/login_page.dart';
 import 'package:sky_pet/presentation/signup/sign_up_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -59,8 +59,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             RoundedButton(
               title: 'LOG IN',
-              onPressed: () =>
-                  Navigator.pushNamed(context, LoginScreen.routeId),
+              onPressed: () => Navigator.pushNamed(context, LoginPage.routeId),
             ),
             RoundedButton(
               title: 'SIGN UP',

@@ -1,4 +1,4 @@
-import 'package:sky_pet/domain/models/user.dart';
+import 'package:sky_pet/domain/models/user_model.dart';
 import 'package:sky_pet/domain/repositories/auth_repository.dart';
 
 class GetUserStream {
@@ -6,5 +6,5 @@ class GetUserStream {
 
   GetUserStream(this.repository);
 
-  Stream<User> call() => repository.getUser();
+  Stream<UserModel> call() => repository.user;
 }
