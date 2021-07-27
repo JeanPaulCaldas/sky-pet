@@ -12,8 +12,8 @@ class MockEmailSignIn extends Mock implements CredentialSignIn {}
 class MockEmailSignUp extends Mock implements CredentialSignUp {}
 
 main() {
-  AuthLoginBloc bloc;
-  MockEmailSignIn mockEmailSignIn;
+  late AuthLoginBloc bloc;
+  late MockEmailSignIn mockEmailSignIn;
   MockEmailSignUp mockEmailSignUp;
 
   final String tEmail = 'mail@mail.com';
@@ -32,14 +32,14 @@ main() {
 
   group('Auth Sign In Failure', () {
     setUp(() {
-      when(mockEmailSignIn(any, any))
+      when(mockEmailSignIn(any!, any!))
           .thenAnswer((_) async => Left(FirebaseFailure()));
     });
 
     blocTest(
       'should emit [Error] state with propper message when firebase failure',
       build: () => bloc,
-      act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+      act: (dynamic bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
       skip: 1,
       expect: () => [Error(message: FIREBASE_FAILURE_MESSAGE)],
     );
@@ -47,7 +47,7 @@ main() {
     blocTest<AuthLoginBloc, AuthLoginState>(
       'should emits [Error] state with propper message when network failure',
       build: () {
-        when(mockEmailSignIn(any, any))
+        when(mockEmailSignIn(any!, any!))
             .thenAnswer((_) async => Left(NetworkFailure()));
         return bloc;
       },
@@ -74,7 +74,7 @@ main() {
 
   group('Auth Sign In', () {
     setUp(() {
-      when(mockEmailSignIn(any, any)).thenAnswer((_) async => Right(true));
+      when(mockEmailSignIn(any!, any!)).thenAnswer((_) async => Right(true));
     });
 
     blocTest<AuthLoginBloc, AuthLoginState>(
@@ -87,7 +87,7 @@ main() {
 
     blocTest('should emits [Loading, Loaded] when successful',
         build: () => bloc,
-        act: (bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
+        act: (dynamic bloc) => bloc.add(AuthSignIn(email: tEmail, password: tPass)),
         expect: () => [isA<Loading>(), isA<Loaded>()]);
   });
 }

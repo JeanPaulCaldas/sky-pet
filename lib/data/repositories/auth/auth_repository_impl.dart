@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sky_pet/core/exceptions.dart';
 import 'package:sky_pet/core/network_info.dart';
 import 'package:sky_pet/data/datasources/auth_firebase_data_source.dart';
 import 'package:sky_pet/domain/models/user_model.dart';
@@ -13,7 +12,10 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthFirebaseDataSource firebaseDataSource;
   final NetworkInfo networkInfo;
 
-  AuthRepositoryImpl({this.firebaseDataSource, this.networkInfo});
+  AuthRepositoryImpl({
+    required this.firebaseDataSource,
+    required this.networkInfo,
+  });
 
   Future<Either<Failure, void>> _callDataSourceMethod(_Chooser method) async {
     if (!await networkInfo.isConnected) return Left(NetworkFailure());

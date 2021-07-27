@@ -21,11 +21,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AppBloc(
-        getUser: di.sl(),
-        getCurrentUser: di.sl(),
-        signOut: di.sl(),
-      ),
+      create: (_) => di.sl<AppBloc>(),
       child: SkyPetApp(),
     );
   }

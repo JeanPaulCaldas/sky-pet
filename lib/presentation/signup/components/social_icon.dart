@@ -4,10 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 
 class SocialIcon extends StatelessWidget {
-  final String iconPath;
-  final Function onTap;
+  final String? iconPath;
+  final Function? onTap;
   const SocialIcon({
-    Key key,
+    Key? key,
     this.iconPath,
     this.onTap,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class SocialIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
         padding: EdgeInsets.all(20),
@@ -27,7 +27,7 @@ class SocialIcon extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: SvgPicture.asset(
-          iconPath,
+          iconPath!,
           color: kPrimaryColor,
           height: 20,
           width: 20,

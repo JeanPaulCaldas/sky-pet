@@ -6,8 +6,8 @@ import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 import 'mock_login_repository.dart';
 
 void main() {
-  CredentialSignUp useCase;
-  MockAuthRepository mockAuthRepository;
+  late CredentialSignUp useCase;
+  MockAuthRepository? mockAuthRepository;
 
   final tEmail = 'email@mail.com';
   final tPass = 'securepass123*';
@@ -19,12 +19,12 @@ void main() {
 
   test('should sign up with valid credentials', () async {
     //arrange
-    when(mockAuthRepository.credentialSignUp(any, any))
+    when(mockAuthRepository!.credentialSignUp(any!, any!))
         .thenAnswer((_) async => Right(Null));
     //act
     final result = await useCase.call(tEmail, tPass);
     //assert
-    verify(mockAuthRepository.credentialSignUp(tEmail, tPass));
+    verify(mockAuthRepository!.credentialSignUp(tEmail, tPass));
     verifyNoMoreInteractions(mockAuthRepository);
     expect(result, Right(Null));
   });

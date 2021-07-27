@@ -4,10 +4,11 @@ import 'package:sky_pet/presentation/components/text_field_container.dart';
 import '../constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
-  final String errorText;
-  final ValueChanged<String> onChanged;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
+
   const RoundedPasswordField({
-    Key key,
+    Key? key,
     this.errorText,
     this.onChanged,
   }) : super(key: key);

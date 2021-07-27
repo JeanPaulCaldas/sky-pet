@@ -7,8 +7,8 @@ import 'package:sky_pet/domain/usecases/auth/get_current_user.dart';
 import 'mock_login_repository.dart';
 
 void main() {
-  GetCurrentUser usecase;
-  MockAuthRepository repository;
+  late GetCurrentUser usecase;
+  MockAuthRepository? repository;
   setUp(() {
     repository = MockAuthRepository();
     usecase = GetCurrentUser(repository);
@@ -16,12 +16,12 @@ void main() {
 
   test('should get current user when is available', () async {
     //arrange
-    when(repository.currentUser)
+    when(repository!.currentUser)
         .thenAnswer((_) async => Right(UserModel.empty));
     //act
-    final result = await usecase();
+    final Either<Failure, UserModel>? result = await usecase();
     //assert
     expect(result, Right(UserModel.empty));
-    verify(repository.currentUser).called(1);
+    verify(repository!.currentUser).called(1);
   });
 }

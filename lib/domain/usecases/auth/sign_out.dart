@@ -5,7 +5,7 @@ import 'package:sky_pet/domain/repositories/auth_repository.dart';
 class SignOut {
   final AuthRepository repository;
 
-  SignOut(this.repository);
+  SignOut({required this.repository});
 
   Future<Either<Failure, void>> call() async => await repository.signOut();
 }

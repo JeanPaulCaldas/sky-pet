@@ -5,7 +5,7 @@ import 'package:sky_pet/domain/repositories/auth_repository.dart';
 class FacebookSignIn {
   final AuthRepository repository;
 
-  FacebookSignIn(this.repository);
+  FacebookSignIn({required this.repository});
 
   Future<Either<Failure, void>> call() async =>
       await repository.facebookSignIn();

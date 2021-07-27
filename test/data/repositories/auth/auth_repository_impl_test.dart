@@ -13,9 +13,9 @@ class MockFirebaseDataSource extends Mock implements AuthFirebaseDataSource {}
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 void main() {
-  AuthRepositoryImpl repository;
-  MockFirebaseDataSource mockFirebaseDataSource;
-  MockNetworkInfo mockNetworkInfo;
+  late AuthRepositoryImpl repository;
+  late MockFirebaseDataSource mockFirebaseDataSource;
+  late MockNetworkInfo mockNetworkInfo;
 
   final tEmail = "abc@mail.com";
   final tPass = "123456";
@@ -29,13 +29,13 @@ void main() {
     );
   });
 
-  void runTest({bool online, Function body}) {
+  void runTest({required bool online, Function? body}) {
     group('device is ${(online ? 'online' : 'offline')}', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => online);
       });
 
-      body();
+      body!();
     });
   }
 
@@ -46,7 +46,7 @@ void main() {
       //act
       repository.credentialSignIn(tEmail, tPass);
       //assert
-      verify(mockNetworkInfo.isConnected);
+      verify(mockNetworkInfo!.isConnected);
     });
 
     runTest(
@@ -56,12 +56,12 @@ void main() {
               'should return null value when the call to firebase data source is successfull',
               () async {
             //arrange
-            when(mockFirebaseDataSource.credentialsSignIn(any, any))
+            when(mockFirebaseDataSource!.credentialsSignIn(any!, any!))
                 .thenAnswer((_) async => null);
             //act
             final result = await repository.credentialSignIn(tEmail, tPass);
             //assert
-            verify(mockFirebaseDataSource.credentialsSignIn(tEmail, tPass));
+            verify(mockFirebaseDataSource!.credentialsSignIn(tEmail, tPass));
             expect(result, equals(Right(null)));
           });
 
@@ -111,12 +111,12 @@ void main() {
               'should return data when call to firebase data source is successful',
               () async {
             //arrange
-            when(mockFirebaseDataSource.credentialsSignUp(any, any))
+            when(mockFirebaseDataSource.credentialsSignUp(any!, any!))
                 .thenAnswer((_) async => null);
             //act
             final response = await repository.credentialSignUp(tEmail, tPass);
             //assert
-            verify(mockFirebaseDataSource.credentialsSignUp(tEmail, tPass));
+            verify(mockFirebaseDataSource!.credentialsSignUp(tEmail, tPass));
             verifyNoMoreInteractions(mockFirebaseDataSource);
             expect(response, Right(null));
           });

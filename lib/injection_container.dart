@@ -8,6 +8,10 @@ import 'package:sky_pet/domain/repositories/auth_repository.dart';
 import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
 import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 import 'package:sky_pet/domain/usecases/auth/facebook_sign_in.dart';
+import 'package:sky_pet/domain/usecases/auth/get_current_user.dart';
+import 'package:sky_pet/domain/usecases/auth/get_user_stream.dart';
+import 'package:sky_pet/domain/usecases/auth/sign_out.dart';
+import 'package:sky_pet/presentation/app/bloc/app_bloc.dart';
 import 'package:sky_pet/presentation/login/bloc/auth_login_bloc.dart';
 import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
 
@@ -17,6 +21,11 @@ final sl = GetIt.I;
 
 void init() {
   //! Features
+  sl.registerFactory(() => AppBloc(
+        getCurrentUser: sl(),
+        getUser: sl(),
+        signOut: sl(),
+      ));
   sl.registerFactory(() => AuthLoginBloc(
         credentialSignIn: sl(),
         credentialSignUp: sl(),
@@ -28,10 +37,13 @@ void init() {
       ));
 
   // Use cases
-  sl.registerLazySingleton(() => CredentialSignIn(sl()));
-  sl.registerLazySingleton(() => CredentialSignUp(sl()));
-  sl.registerLazySingleton(() => GoogleSignIn(sl()));
-  sl.registerLazySingleton(() => FacebookSignIn(sl()));
+  sl.registerLazySingleton(() => CredentialSignIn(repository: sl()));
+  sl.registerLazySingleton(() => GetCurrentUser(repository: sl()));
+  sl.registerLazySingleton(() => GetUserStream(repository: sl()));
+  sl.registerLazySingleton(() => CredentialSignUp(repository: sl()));
+  sl.registerLazySingleton(() => SignOut(repository: sl()));
+  sl.registerLazySingleton(() => GoogleSignIn(repository: sl()));
+  sl.registerLazySingleton(() => FacebookSignIn(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
@@ -44,7 +56,8 @@ void init() {
       () => AuthFirebaseDataSourceImpl(firebaseAuth: sl()));
 
   //! Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(connectionChecker: sl()));
 
   //! External
   sl.registerLazySingleton(() => InternetConnectionChecker());

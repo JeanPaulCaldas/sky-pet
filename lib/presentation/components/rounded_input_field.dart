@@ -4,13 +4,13 @@ import 'package:sky_pet/presentation/components/text_field_container.dart';
 import '../constants.dart';
 
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final IconData icon;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   final String errorText;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
   const RoundedInputField({
-    Key key,
+    Key? key,
     this.hintText,
     this.icon = Icons.person,
     this.textInputType,

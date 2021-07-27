@@ -6,8 +6,8 @@ import 'package:sky_pet/domain/usecases/auth/sign_out.dart';
 import 'mock_login_repository.dart';
 
 void main() {
-  MockAuthRepository mockRepository;
-  SignOut usecase;
+  MockAuthRepository? mockRepository;
+  late SignOut usecase;
 
   setUp(() {
     mockRepository = MockAuthRepository();
@@ -16,12 +16,12 @@ void main() {
 
   test('should sign out', () async {
     //arrange
-    when(mockRepository.signOut()).thenAnswer((_) async => Right(Null));
+    when(mockRepository!.signOut()).thenAnswer((_) async => Right(Null));
     //act
-    final result = await usecase();
+    final Either<Failure, void>? result = await usecase();
     //assert
     expect(result, Right(Null));
-    verify(mockRepository.signOut()).called(1);
+    verify(mockRepository!.signOut()).called(1);
     verifyNoMoreInteractions(mockRepository);
   });
 }

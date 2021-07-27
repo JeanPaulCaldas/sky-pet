@@ -4,7 +4,7 @@ import 'package:sky_pet/domain/repositories/auth_repository.dart';
 class GetUserStream {
   final AuthRepository repository;
 
-  GetUserStream(this.repository);
+  GetUserStream({required this.repository});
 
   Stream<UserModel> call() => repository.user;
 }

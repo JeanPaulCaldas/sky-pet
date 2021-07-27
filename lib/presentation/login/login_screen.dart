@@ -64,12 +64,13 @@ class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInCubit, SignInState>(
-        buildWhen: (previous, current) => previous.email != current.email,
+        buildWhen: (previous, current) => 1 != 0,
+        /*previous.email != current.email,*/
         builder: (context, state) {
           return RoundedInputField(
             hintText: 'Tu e-mail',
             textInputType: TextInputType.emailAddress,
-            errorText: state.email.invalid ? 'e-mail no válido' : null,
+            errorText: /*state.email.invalid ?*/ 'e-mail no válido',
             onChanged: (value) =>
                 context.read<SignInCubit>().emailChanged(value),
           );
@@ -81,10 +82,11 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInCubit, SignInState>(
-        buildWhen: (previous, current) => previous.password != current.password,
+        buildWhen: (previous, current) => 1 != 0,
+        /*previous.password != current.password,*/
         builder: (context, state) {
           return RoundedPasswordField(
-            errorText: state.password.invalid ? 'contraseña no válida' : null,
+            errorText: 'contraseña no válida',
             onChanged: (value) =>
                 context.read<SignInCubit>().passwordChanged(value),
           );
@@ -100,12 +102,11 @@ class _SignInButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : RoundedButton(
-                title: 'LOGIN',
-                onPressed: state.status.isValidated
-                    ? () => context.read<SignInCubit>().signInWithCredentials()
-                    : null,
-              );
+            : RoundedButton(title: 'LOGIN', onPressed: () {}
+                // state.status.isValidated
+                //     ? () => context.read<SignInCubit>().signInWithCredentials()
+                //     : {},
+                );
       },
     );
   }

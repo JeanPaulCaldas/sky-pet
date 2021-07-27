@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sky_pet/presentation/constants.dart';
 
 class RoundedButton extends StatelessWidget {
-  final String title;
+  final String? title;
   final Color color, textColor;
   final Function onPressed;
 
@@ -11,7 +11,7 @@ class RoundedButton extends StatelessWidget {
       {this.title,
       this.color = kPrimaryColor,
       this.textColor = Colors.white,
-      @required this.onPressed});
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class RoundedButton extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(29.0),
         child: MaterialButton(
-          onPressed: onPressed,
+          onPressed: onPressed as void Function()?,
           minWidth: 200.0,
           height: 42.0,
           child: Text(
-            title,
+            title!,
             style: TextStyle(color: textColor, fontSize: 16.0),
           ),
         ),

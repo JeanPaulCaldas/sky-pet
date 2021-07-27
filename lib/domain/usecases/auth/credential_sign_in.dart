@@ -5,7 +5,7 @@ import 'package:sky_pet/domain/repositories/auth_repository.dart';
 class CredentialSignIn {
   final AuthRepository repository;
 
-  CredentialSignIn(this.repository);
+  CredentialSignIn({required this.repository});
 
   Future<Either<Failure, void>> call(String email, String password) async =>
       await repository.credentialSignIn(email, password);

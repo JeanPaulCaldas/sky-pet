@@ -7,7 +7,6 @@ import 'cubit/sign_in_cubit.dart';
 
 class LoginPage extends StatelessWidget {
   static String routeId = 'login';
-  const LoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

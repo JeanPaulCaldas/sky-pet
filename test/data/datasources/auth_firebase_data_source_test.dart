@@ -11,10 +11,10 @@ class MockUserCredential extends Mock implements firebase_auth.UserCredential {}
 class MockFirebaseUser extends Mock implements firebase_auth.User {}
 
 void main() {
-  AuthFirebaseDataSourceImpl dataSource;
-  MockFirebaseAuth mockFirebaseAuth;
-  MockUserCredential mockUserCredential;
-  MockFirebaseUser mockFirebaseUser;
+  late AuthFirebaseDataSourceImpl dataSource;
+  late MockFirebaseAuth mockFirebaseAuth;
+  MockUserCredential? mockUserCredential;
+  late MockFirebaseUser mockFirebaseUser;
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();

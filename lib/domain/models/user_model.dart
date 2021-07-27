@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 class UserModel extends Equatable {
   final String id;
-  final String email;
-  final String name;
+  final String? email;
+  final String? name;
 
   const UserModel({
-    this.id,
+    required this.id,
     this.email,
     this.name,
   });
@@ -16,5 +16,5 @@ class UserModel extends Equatable {
   bool get isEmpty => this == UserModel.empty;
 
   @override
-  List<Object> get props => [id, email, name];
+  List<Object?> get props => [id, email, name];
 }

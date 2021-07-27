@@ -6,8 +6,8 @@ import 'package:sky_pet/domain/usecases/auth/google_sign_in.dart';
 import 'mock_login_repository.dart';
 
 void main() {
-  GoogleSignIn usecase;
-  MockAuthRepository mockAuthRepository;
+  late GoogleSignIn usecase;
+  MockAuthRepository? mockAuthRepository;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
@@ -16,13 +16,13 @@ void main() {
 
   test('should sign in with google', () async {
     //arrange
-    when(mockAuthRepository.googleSignIn())
+    when(mockAuthRepository!.googleSignIn())
         .thenAnswer((_) async => Right(Null));
     //act
-    final result = await usecase();
+    final Either<Failure, void>? result = await usecase();
     //assert
     expect(result, Right(Null));
-    verify(mockAuthRepository.googleSignIn());
+    verify(mockAuthRepository!.googleSignIn());
     verifyNoMoreInteractions(mockAuthRepository);
   });
 }

@@ -6,8 +6,8 @@ import 'package:sky_pet/domain/usecases/auth/facebook_sign_in.dart';
 import 'mock_login_repository.dart';
 
 void main() {
-  FacebookSignIn usecase;
-  MockAuthRepository mockAuthRepository;
+  late FacebookSignIn usecase;
+  MockAuthRepository? mockAuthRepository;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
@@ -16,15 +16,15 @@ void main() {
 
   test('should sign in with facebook', () async {
     //arrange
-    when(mockAuthRepository.facebookSignIn())
+    when(mockAuthRepository!.facebookSignIn())
         .thenAnswer((_) async => Right(Null));
 
     //act
-    final result = await usecase();
+    final Either<Failure, void>? result = await usecase();
 
     //assert
     expect(result, Right(Null));
-    verify(mockAuthRepository.facebookSignIn());
+    verify(mockAuthRepository!.facebookSignIn());
     verifyNoMoreInteractions(mockAuthRepository);
   });
 }

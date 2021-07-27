@@ -14,7 +14,7 @@ abstract class AuthFirebaseDataSource {
 class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   final FirebaseAuth firebaseAuth;
 
-  AuthFirebaseDataSourceImpl({this.firebaseAuth});
+  AuthFirebaseDataSourceImpl({required this.firebaseAuth});
 
   @override
   Future<void> credentialsSignIn(String email, String password) async {
@@ -58,7 +58,7 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         .map((firebaseUser) => _getUserModel(firebaseUser));
   }
 
-  UserModel _getUserModel(User firebaseUser) =>
+  UserModel _getUserModel(User? firebaseUser) =>
       firebaseUser == null ? UserModel.empty : firebaseUser.toUserModel;
 }
 

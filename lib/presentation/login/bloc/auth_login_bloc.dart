@@ -19,8 +19,8 @@ class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
   final CredentialSignUp credentialSignUp;
 
   AuthLoginBloc({
-    this.credentialSignIn,
-    this.credentialSignUp,
+    required this.credentialSignIn,
+    required this.credentialSignUp,
   })  : assert(credentialSignIn != null),
         assert(credentialSignUp != null),
         super(Empty());
@@ -31,7 +31,7 @@ class AuthLoginBloc extends Bloc<AuthLoginEvent, AuthLoginState> {
   ) async* {
     if (event is AuthSignIn) {
       yield Loading();
-      final authEither = await credentialSignIn(event.email, event.password);
+      final authEither = await credentialSignIn(event.email!, event.password!);
       yield* _eitherLoadedOrErrorState(authEither);
     }
   }

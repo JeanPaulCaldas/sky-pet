@@ -12,14 +12,14 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final GetUserStream getUser;
-  final GetCurrentUser getCurrentUser;
-  final SignOut signOut;
-  StreamSubscription<UserModel> _subscription;
+  final GetUserStream? getUser;
+  final GetCurrentUser? getCurrentUser;
+  final SignOut? signOut;
+  late StreamSubscription<UserModel> _subscription;
 
   AppBloc({this.getUser, this.getCurrentUser, this.signOut})
       : super(const AppState.unauthenticated()) {
-    _subscription = getUser.call().listen(_onUserChanged);
+    _subscription = getUser!.call().listen(_onUserChanged);
   }
   void _onUserChanged(UserModel user) => add(AppUserChanged(user));
 
@@ -30,7 +30,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is AppUserChanged) {
       yield _mapUserChangeToState(event, state);
     } else if (event is AppLogoutRequested) {
-      await signOut();
+      await signOut!();
     }
   }
 
