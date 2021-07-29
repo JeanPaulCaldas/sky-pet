@@ -4,7 +4,7 @@ import 'package:sky_pet/presentation/components/already_have_an_account_check.da
 import 'package:sky_pet/presentation/components/rounded_button.dart';
 import 'package:sky_pet/presentation/components/rounded_input_field.dart';
 import 'package:sky_pet/presentation/components/rounded_password_field.dart';
-import 'package:sky_pet/presentation/login/login_page.dart';
+import 'package:sky_pet/presentation/sign_in/sign_in_page.dart';
 
 import 'components/or_divider.dart';
 import 'components/social_icon.dart';
@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 AlreadyHaveAnAccountCheck(
                   login: false,
                   onTap: () {
-                    Navigator.pushNamed(context, LoginPage.routeId);
+                    Navigator.pushNamed(context, SignInPage.routeId);
                   },
                 ),
                 OrDivider(),

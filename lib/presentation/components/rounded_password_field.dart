@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sky_pet/presentation/components/text_field_container.dart';
 
-import '../constants.dart';
+import '../core/constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final String? errorText;

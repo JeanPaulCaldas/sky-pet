@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sky_pet/presentation/constants.dart';
+import 'package:sky_pet/presentation/core/constants.dart';
 
 class RoundedButton extends StatelessWidget {
   final String? title;

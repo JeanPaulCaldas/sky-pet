@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sky_pet/injection.dart';
 import 'package:sky_pet/presentation/app/bloc/app_bloc.dart';
-import 'package:sky_pet/presentation/login/login_page.dart';
+import 'package:sky_pet/presentation/core/app_widget.dart';
+import 'package:sky_pet/presentation/sign_in/sign_in_page.dart';
 
 import 'injection_container.dart' as di;
 import 'presentation/signup/sign_up_screen.dart';
@@ -12,9 +14,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  di.init();
-
-  runApp(SkyPetApp());
+  //di.init();
+  configureDependencies();
+  runApp(AppWidget());
 }
 
 class App extends StatelessWidget {
@@ -67,7 +69,7 @@ class SkyPetApp extends StatelessWidget {
       initialRoute: WelcomeScreen.routeId,
       routes: {
         WelcomeScreen.routeId: (context) => WelcomeScreen(),
-        LoginPage.routeId: (context) => LoginPage(),
+        SignInPage.routeId: (context) => SignInPage(),
         SignUpScreen.routeId: (context) => SignUpScreen()
       },
     );

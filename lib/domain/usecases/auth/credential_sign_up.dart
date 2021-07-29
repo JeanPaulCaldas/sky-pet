@@ -8,5 +8,5 @@ class CredentialSignUp {
   CredentialSignUp({required this.repository});
 
   Future<Either<Failure, void>> call(String email, String password) async =>
-      await repository.credentialSignUp(email, password);
+      repository.credentialSignUp(email, password);
 }
