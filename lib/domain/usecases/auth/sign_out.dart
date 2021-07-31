@@ -1,5 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
+@lazySingleton
+@injectable
 class SignOut {
   final AuthRepository _repository;
 

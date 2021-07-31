@@ -1,9 +1,9 @@
-import 'package:sky_pet/domain/auth/i_auth_repository.dart';
+//import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
 class GetCurrentUser {
-  final AuthRepository repository;
+  // final AuthRepository _repository;
 
-  GetCurrentUser({required this.repository});
+  // GetCurrentUser(this._repository);
 
   // Future<Either<Failure, UserModel>> call() async => repository.currentUser;
 }

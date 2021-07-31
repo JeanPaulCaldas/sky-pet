@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:sky_pet/presentation/components/already_have_an_account_check.dart';
 import 'package:sky_pet/presentation/components/rounded_input_field.dart';
 import 'package:sky_pet/presentation/components/rounded_password_field.dart';
 import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
-import 'package:sky_pet/presentation/signup/sign_up_screen.dart';
+import 'package:sky_pet/presentation/routes/app_router.gr.dart';
 
 class SignInForm extends StatelessWidget {
   @override
@@ -42,9 +43,7 @@ class SignInForm extends StatelessWidget {
               height: size.height * 0.04,
             ),
             AlreadyHaveAnAccountCheck(
-              onTap: () {
-                Navigator.pushNamed(context, SignUpScreen.routeId);
-              },
+              onTap: () => context.router.push(const SignUpRoute()),
             ),
           ],
         ),

@@ -24,3 +24,20 @@ class Password extends ValueObject<String> {
 
   const Password._(this.value);
 }
+
+class PasswordConfirmation extends ValueObject<String> {
+  @override
+  // TODO: implement value
+  final Either<ValueFailure<String>, String> value;
+
+  factory PasswordConfirmation(String input, String password) {
+    return PasswordConfirmation._(
+      input == password
+          ? right(input)
+          : left(
+              ValueFailure.noMatchingPasswordConfirmation(failedValue: input)),
+    );
+  }
+
+  const PasswordConfirmation._(this.value);
+}

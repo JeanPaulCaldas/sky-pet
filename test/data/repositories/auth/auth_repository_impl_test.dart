@@ -26,8 +26,8 @@ void main() {
     mockFirebaseDataSource = MockFirebaseDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = AuthRepositoryImpl(
-      firebaseDataSource: mockFirebaseDataSource,
-      networkInfo: mockNetworkInfo,
+      mockFirebaseDataSource,
+      mockNetworkInfo,
     );
   });
 
@@ -171,19 +171,19 @@ void main() {
     final tUser = some(d.User(id: UniqueId()));
     test('should emits empty user when firebase user is null', () async {
       //arrange
-      when(() => mockFirebaseDataSource.getSignedInUser())
+      when(() => mockFirebaseDataSource.userState)
           .thenAnswer((_) => Stream.value(tUser));
       //act - assert
-      expectLater(repository.user, emitsInOrder([tUser]));
+      expectLater(repository.userState, emitsInOrder([tUser]));
     });
 
     test('should emits user model instance when firebase user is not null',
         () async {
       //arrange
-      when(() => mockFirebaseDataSource.getSignedInUser())
+      when(() => mockFirebaseDataSource.userState)
           .thenAnswer((_) => Stream.value(tUser));
       //act - assert
-      expectLater(repository.user, emitsInOrder([tUser]));
+      expectLater(repository.userState, emitsInOrder([tUser]));
     });
   });
 }

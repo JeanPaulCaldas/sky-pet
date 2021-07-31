@@ -8,6 +8,7 @@ import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
 import '../sign_in/sign_in_page.dart' as _i5;
+import '../signup/sign_up_page.dart' as _i6;
 import '../splash/splash_page.dart' as _i3;
 import '../welcome/welcome_page.dart' as _i4;
 
@@ -31,6 +32,11 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (_) {
           return _i5.SignInPage();
+        }),
+    SignUpRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return _i6.SignUpPage();
         })
   };
 
@@ -38,7 +44,8 @@ class AppRouter extends _i1.RootStackRouter {
   List<_i1.RouteConfig> get routes => [
         _i1.RouteConfig(SplashRoute.name, path: '/'),
         _i1.RouteConfig(WelcomeRoute.name, path: '/welcome-page'),
-        _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page')
+        _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page'),
+        _i1.RouteConfig(SignUpRoute.name, path: '/sign-up-page')
       ];
 }
 
@@ -58,4 +65,10 @@ class SignInRoute extends _i1.PageRouteInfo {
   const SignInRoute() : super(name, path: '/sign-in-page');
 
   static const String name = 'SignInRoute';
+}
+
+class SignUpRoute extends _i1.PageRouteInfo {
+  const SignUpRoute() : super(name, path: '/sign-up-page');
+
+  static const String name = 'SignUpRoute';
 }

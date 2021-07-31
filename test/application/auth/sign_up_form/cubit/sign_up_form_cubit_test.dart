@@ -26,7 +26,7 @@ void main() {
     expect(cubit.state, equals(SignUpFormState.initial()));
   });
 
-  group('Sign up failed', () {
+  group('Google sign up failed', () {
     late SignUpFormState tState;
 
     setUp(() {
@@ -38,10 +38,18 @@ void main() {
     });
 
     blocTest<SignUpFormCubit, SignUpFormState>(
-        'should emit failure option and show error messages',
-        build: () => cubit,
-        act: (cubit) => cubit.googleSignIn(),
-        skip: 1,
-        expect: () => [tState]);
+      'should emit server error failure option when firebase auth fails.',
+      build: () => cubit,
+      act: (cubit) => cubit.googleSignIn(),
+      skip: 1,
+      expect: () => tState,
+    );
+
+    // blocTest<SignUpFormCubit, SignUpFormState>(
+    //   'should emits [MyState] when email and pass sign up is called.',
+    //   build: () => cubit,
+    //   act: (cubit) => cubit.emailAndPassSignUp(),
+    //   expect: () => const <SignUpFormState>[MyState],
+    // );
   });
 }

@@ -2,13 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sky_pet/domain/auth/auth_failure.dart';
 import 'package:sky_pet/domain/auth/user.dart' as d;
 import 'package:sky_pet/domain/auth/value_objects.dart';
 import 'package:sky_pet/domain/core/value_objects.dart';
 
 abstract class AuthFirebaseDataSource {
-  Stream<Option<d.User>> getSignedInUser();
+  Stream<Option<d.User>> get userState;
 
   Future<Either<AuthFailure, Unit>> signInWithCredentials({
     required EmailAddress emailAddress,
@@ -24,6 +25,7 @@ abstract class AuthFirebaseDataSource {
   Future<void> signOut();
 }
 
+@LazySingleton(as: AuthFirebaseDataSource)
 class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
@@ -34,11 +36,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         _googleSignIn = googleSignIn;
 
   @override
-  Stream<Option<d.User>> getSignedInUser() {
-    return _firebaseAuth
-        .authStateChanges()
-        .map((firebaseUser) => optionOf(firebaseUser?.toDomain));
-  }
+  Stream<Option<d.User>> get userState => _firebaseAuth
+      .authStateChanges()
+      .map((firebaseUser) => optionOf(firebaseUser?.toDomain));
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithCredentials(
@@ -93,7 +93,7 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: emailAddressStr, password: passwordStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       return left(e.code == 'email-already-in-use'
           ? const AuthFailure.emailAlreadyInUse()
           : const AuthFailure.serverError());

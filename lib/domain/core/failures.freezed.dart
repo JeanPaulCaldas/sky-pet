@@ -27,6 +27,13 @@ class _$ValueFailureTearOff {
       failedValue: failedValue,
     );
   }
+
+  NoMatchingPasswordConfirmation<T> noMatchingPasswordConfirmation<T>(
+      {required String failedValue}) {
+    return NoMatchingPasswordConfirmation<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 /// @nodoc
@@ -40,12 +47,15 @@ mixin _$ValueFailure<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue)
+        noMatchingPasswordConfirmation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -53,12 +63,16 @@ mixin _$ValueFailure<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(NoMatchingPasswordConfirmation<T> value)
+        noMatchingPasswordConfirmation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(NoMatchingPasswordConfirmation<T> value)?
+        noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +182,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue)
+        noMatchingPasswordConfirmation,
   }) {
     return invalidEmail(failedValue);
   }
@@ -177,6 +193,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -190,6 +207,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(NoMatchingPasswordConfirmation<T> value)
+        noMatchingPasswordConfirmation,
   }) {
     return invalidEmail(this);
   }
@@ -199,6 +218,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(NoMatchingPasswordConfirmation<T> value)?
+        noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -289,6 +310,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue)
+        noMatchingPasswordConfirmation,
   }) {
     return shortPassword(failedValue);
   }
@@ -298,6 +321,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -311,6 +335,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(NoMatchingPasswordConfirmation<T> value)
+        noMatchingPasswordConfirmation,
   }) {
     return shortPassword(this);
   }
@@ -320,6 +346,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(NoMatchingPasswordConfirmation<T> value)?
+        noMatchingPasswordConfirmation,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -339,4 +367,138 @@ abstract class ShortPassword<T> implements ValueFailure<T> {
   @JsonKey(ignore: true)
   $ShortPasswordCopyWith<T, ShortPassword<T>> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NoMatchingPasswordConfirmationCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $NoMatchingPasswordConfirmationCopyWith(
+          NoMatchingPasswordConfirmation<T> value,
+          $Res Function(NoMatchingPasswordConfirmation<T>) then) =
+      _$NoMatchingPasswordConfirmationCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String failedValue});
+}
+
+/// @nodoc
+class _$NoMatchingPasswordConfirmationCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $NoMatchingPasswordConfirmationCopyWith<T, $Res> {
+  _$NoMatchingPasswordConfirmationCopyWithImpl(
+      NoMatchingPasswordConfirmation<T> _value,
+      $Res Function(NoMatchingPasswordConfirmation<T>) _then)
+      : super(_value, (v) => _then(v as NoMatchingPasswordConfirmation<T>));
+
+  @override
+  NoMatchingPasswordConfirmation<T> get _value =>
+      super._value as NoMatchingPasswordConfirmation<T>;
+
+  @override
+  $Res call({
+    Object? failedValue = freezed,
+  }) {
+    return _then(NoMatchingPasswordConfirmation<T>(
+      failedValue: failedValue == freezed
+          ? _value.failedValue
+          : failedValue // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NoMatchingPasswordConfirmation<T>
+    implements NoMatchingPasswordConfirmation<T> {
+  const _$NoMatchingPasswordConfirmation({required this.failedValue});
+
+  @override
+  final String failedValue;
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.noMatchingPasswordConfirmation(failedValue: $failedValue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is NoMatchingPasswordConfirmation<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @JsonKey(ignore: true)
+  @override
+  $NoMatchingPasswordConfirmationCopyWith<T, NoMatchingPasswordConfirmation<T>>
+      get copyWith => _$NoMatchingPasswordConfirmationCopyWithImpl<T,
+          NoMatchingPasswordConfirmation<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String failedValue) invalidEmail,
+    required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue)
+        noMatchingPasswordConfirmation,
+  }) {
+    return noMatchingPasswordConfirmation(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String failedValue)? invalidEmail,
+    TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? noMatchingPasswordConfirmation,
+    required TResult orElse(),
+  }) {
+    if (noMatchingPasswordConfirmation != null) {
+      return noMatchingPasswordConfirmation(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmail<T> value) invalidEmail,
+    required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(NoMatchingPasswordConfirmation<T> value)
+        noMatchingPasswordConfirmation,
+  }) {
+    return noMatchingPasswordConfirmation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmail<T> value)? invalidEmail,
+    TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(NoMatchingPasswordConfirmation<T> value)?
+        noMatchingPasswordConfirmation,
+    required TResult orElse(),
+  }) {
+    if (noMatchingPasswordConfirmation != null) {
+      return noMatchingPasswordConfirmation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoMatchingPasswordConfirmation<T> implements ValueFailure<T> {
+  const factory NoMatchingPasswordConfirmation({required String failedValue}) =
+      _$NoMatchingPasswordConfirmation<T>;
+
+  @override
+  String get failedValue => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $NoMatchingPasswordConfirmationCopyWith<T, NoMatchingPasswordConfirmation<T>>
+      get copyWith => throw _privateConstructorUsedError;
 }

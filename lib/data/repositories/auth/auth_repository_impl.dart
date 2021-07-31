@@ -1,38 +1,32 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sky_pet/core/network_info.dart';
 import 'package:sky_pet/data/datasources/auth_firebase_data_source.dart';
-import 'package:sky_pet/core/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:sky_pet/domain/auth/auth_failure.dart';
 import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 import 'package:sky_pet/domain/auth/value_objects.dart';
 import 'package:sky_pet/domain/auth/user.dart' as d;
 
-typedef Chooser = Future<void> Function();
+typedef Chooser = Future<Either<AuthFailure, Unit>> Function();
 
+@LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthFirebaseDataSource _firebaseDataSource;
   final NetworkInfo _networkInfo;
 
-  AuthRepositoryImpl({
-    required AuthFirebaseDataSource firebaseDataSource,
-    required NetworkInfo networkInfo,
-  })  : _firebaseDataSource = firebaseDataSource,
-        _networkInfo = networkInfo;
+  AuthRepositoryImpl(this._firebaseDataSource, this._networkInfo);
 
-  Future<Either<Failure, void>> _callDataSourceMethod(Chooser method) async {
-    if (!await _networkInfo.isConnected) return Left(NetworkFailure());
-    try {
-      return Right(await method());
-    } on FirebaseAuthException {
-      return Left(FirebaseFailure());
+  Future<Either<AuthFailure, Unit>> _callDataSourceMethod(
+      Chooser method) async {
+    if (!await _networkInfo.isConnected) {
+      const Left(AuthFailure.connectionError());
     }
+    return method();
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> googleSignIn() {
-    // TODO: implement googleSignIn
-    throw UnimplementedError();
+  Future<Either<AuthFailure, Unit>> googleSignIn() async {
+    return _callDataSourceMethod(() => _firebaseDataSource.signInWithGoogle());
   }
 
   @override
@@ -51,13 +45,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, Unit>> signUpWithEmailAndPass(
       {required EmailAddress email, required Password password}) {
-    // TODO: implement signUpWithEmailAndPass
-    throw UnimplementedError();
+    return _callDataSourceMethod(() => _firebaseDataSource
+        .signUpWithCredentials(emailAddress: email, password: password));
   }
 
   @override
   // TODO: implement user
-  Stream<Option<d.User>> get user => throw UnimplementedError();
+  Stream<Option<d.User>> get userState => _firebaseDataSource.userState;
 
   // @override
   // Future<Either<Failure, void>> signUpWithEmailAndPass(

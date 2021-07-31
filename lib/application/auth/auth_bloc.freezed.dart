@@ -16,8 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AuthEventTearOff {
   const _$AuthEventTearOff();
 
-  _UserAuthStateRequested userAuthStateRequested() {
-    return const _UserAuthStateRequested();
+  _UserStateChanged userStateChanged(Option<User> optionUser) {
+    return _UserStateChanged(
+      optionUser,
+    );
   }
 
   _SignOutRequested signOutRequested() {
@@ -32,27 +34,26 @@ const $AuthEvent = _$AuthEventTearOff();
 mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() userAuthStateRequested,
+    required TResult Function(Option<User> optionUser) userStateChanged,
     required TResult Function() signOutRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? userAuthStateRequested,
+    TResult Function(Option<User> optionUser)? userStateChanged,
     TResult Function()? signOutRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_UserAuthStateRequested value)
-        userAuthStateRequested,
+    required TResult Function(_UserStateChanged value) userStateChanged,
     required TResult Function(_SignOutRequested value) signOutRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_UserAuthStateRequested value)? userAuthStateRequested,
+    TResult Function(_UserStateChanged value)? userStateChanged,
     TResult Function(_SignOutRequested value)? signOutRequested,
     required TResult orElse(),
   }) =>
@@ -75,60 +76,86 @@ class _$AuthEventCopyWithImpl<$Res> implements $AuthEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserAuthStateRequestedCopyWith<$Res> {
-  factory _$UserAuthStateRequestedCopyWith(_UserAuthStateRequested value,
-          $Res Function(_UserAuthStateRequested) then) =
-      __$UserAuthStateRequestedCopyWithImpl<$Res>;
+abstract class _$UserStateChangedCopyWith<$Res> {
+  factory _$UserStateChangedCopyWith(
+          _UserStateChanged value, $Res Function(_UserStateChanged) then) =
+      __$UserStateChangedCopyWithImpl<$Res>;
+  $Res call({Option<User> optionUser});
 }
 
 /// @nodoc
-class __$UserAuthStateRequestedCopyWithImpl<$Res>
+class __$UserStateChangedCopyWithImpl<$Res>
     extends _$AuthEventCopyWithImpl<$Res>
-    implements _$UserAuthStateRequestedCopyWith<$Res> {
-  __$UserAuthStateRequestedCopyWithImpl(_UserAuthStateRequested _value,
-      $Res Function(_UserAuthStateRequested) _then)
-      : super(_value, (v) => _then(v as _UserAuthStateRequested));
+    implements _$UserStateChangedCopyWith<$Res> {
+  __$UserStateChangedCopyWithImpl(
+      _UserStateChanged _value, $Res Function(_UserStateChanged) _then)
+      : super(_value, (v) => _then(v as _UserStateChanged));
 
   @override
-  _UserAuthStateRequested get _value => super._value as _UserAuthStateRequested;
+  _UserStateChanged get _value => super._value as _UserStateChanged;
+
+  @override
+  $Res call({
+    Object? optionUser = freezed,
+  }) {
+    return _then(_UserStateChanged(
+      optionUser == freezed
+          ? _value.optionUser
+          : optionUser // ignore: cast_nullable_to_non_nullable
+              as Option<User>,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_UserAuthStateRequested implements _UserAuthStateRequested {
-  const _$_UserAuthStateRequested();
+class _$_UserStateChanged implements _UserStateChanged {
+  const _$_UserStateChanged(this.optionUser);
+
+  @override
+  final Option<User> optionUser;
 
   @override
   String toString() {
-    return 'AuthEvent.userAuthStateRequested()';
+    return 'AuthEvent.userStateChanged(optionUser: $optionUser)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _UserAuthStateRequested);
+    return identical(this, other) ||
+        (other is _UserStateChanged &&
+            (identical(other.optionUser, optionUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.optionUser, optionUser)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(optionUser);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UserStateChangedCopyWith<_UserStateChanged> get copyWith =>
+      __$UserStateChangedCopyWithImpl<_UserStateChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() userAuthStateRequested,
+    required TResult Function(Option<User> optionUser) userStateChanged,
     required TResult Function() signOutRequested,
   }) {
-    return userAuthStateRequested();
+    return userStateChanged(optionUser);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? userAuthStateRequested,
+    TResult Function(Option<User> optionUser)? userStateChanged,
     TResult Function()? signOutRequested,
     required TResult orElse(),
   }) {
-    if (userAuthStateRequested != null) {
-      return userAuthStateRequested();
+    if (userStateChanged != null) {
+      return userStateChanged(optionUser);
     }
     return orElse();
   }
@@ -136,29 +163,34 @@ class _$_UserAuthStateRequested implements _UserAuthStateRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_UserAuthStateRequested value)
-        userAuthStateRequested,
+    required TResult Function(_UserStateChanged value) userStateChanged,
     required TResult Function(_SignOutRequested value) signOutRequested,
   }) {
-    return userAuthStateRequested(this);
+    return userStateChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_UserAuthStateRequested value)? userAuthStateRequested,
+    TResult Function(_UserStateChanged value)? userStateChanged,
     TResult Function(_SignOutRequested value)? signOutRequested,
     required TResult orElse(),
   }) {
-    if (userAuthStateRequested != null) {
-      return userAuthStateRequested(this);
+    if (userStateChanged != null) {
+      return userStateChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _UserAuthStateRequested implements AuthEvent {
-  const factory _UserAuthStateRequested() = _$_UserAuthStateRequested;
+abstract class _UserStateChanged implements AuthEvent {
+  const factory _UserStateChanged(Option<User> optionUser) =
+      _$_UserStateChanged;
+
+  Option<User> get optionUser => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UserStateChangedCopyWith<_UserStateChanged> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -201,7 +233,7 @@ class _$_SignOutRequested implements _SignOutRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() userAuthStateRequested,
+    required TResult Function(Option<User> optionUser) userStateChanged,
     required TResult Function() signOutRequested,
   }) {
     return signOutRequested();
@@ -210,7 +242,7 @@ class _$_SignOutRequested implements _SignOutRequested {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? userAuthStateRequested,
+    TResult Function(Option<User> optionUser)? userStateChanged,
     TResult Function()? signOutRequested,
     required TResult orElse(),
   }) {
@@ -223,8 +255,7 @@ class _$_SignOutRequested implements _SignOutRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_UserAuthStateRequested value)
-        userAuthStateRequested,
+    required TResult Function(_UserStateChanged value) userStateChanged,
     required TResult Function(_SignOutRequested value) signOutRequested,
   }) {
     return signOutRequested(this);
@@ -233,7 +264,7 @@ class _$_SignOutRequested implements _SignOutRequested {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_UserAuthStateRequested value)? userAuthStateRequested,
+    TResult Function(_UserStateChanged value)? userStateChanged,
     TResult Function(_SignOutRequested value)? signOutRequested,
     required TResult orElse(),
   }) {

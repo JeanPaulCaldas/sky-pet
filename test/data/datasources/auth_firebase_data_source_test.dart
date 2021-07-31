@@ -72,7 +72,7 @@ void main() {
       when(() => mockFirebaseAuth.authStateChanges())
           .thenAnswer((_) => Stream.value(null));
       //act - assert
-      expectLater(dataSource.getSignedInUser(), emitsInOrder([none()]));
+      expectLater(dataSource.userState, emitsInOrder([none()]));
     });
 
     test('should emits domain user instance when firebase user is not null',
@@ -83,7 +83,7 @@ void main() {
       when(() => mockFirebaseAuth.authStateChanges())
           .thenAnswer((_) => Stream.value(mockFirebaseUser));
       //act - assert
-      expectLater(dataSource.getSignedInUser(), emitsInOrder([some(user)]));
+      expectLater(dataSource.userState, emitsInOrder([some(user)]));
     });
   });
 }

@@ -4,7 +4,7 @@ import 'package:sky_pet/domain/auth/user.dart';
 import 'package:sky_pet/domain/auth/value_objects.dart';
 
 abstract class AuthRepository {
-  Stream<Option<User>> get user;
+  Stream<Option<User>> get userState;
 
   Future<Either<AuthFailure, Unit>> signUpWithEmailAndPass(
       {required EmailAddress email, required Password password});

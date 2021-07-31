@@ -19,12 +19,14 @@ class _$SignUpFormStateTearOff {
   _SignUpFormState call(
       {required EmailAddress emailAddress,
       required Password password,
+      required PasswordConfirmation passwordConfirmation,
       required bool showErrorMessages,
       required bool isSubmitting,
       required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
     return _SignUpFormState(
       emailAddress: emailAddress,
       password: password,
+      passwordConfirmation: passwordConfirmation,
       showErrorMessages: showErrorMessages,
       isSubmitting: isSubmitting,
       authFailureOrSuccessOption: authFailureOrSuccessOption,
@@ -39,6 +41,8 @@ const $SignUpFormState = _$SignUpFormStateTearOff();
 mixin _$SignUpFormState {
   EmailAddress get emailAddress => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
+  PasswordConfirmation get passwordConfirmation =>
+      throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption =>
@@ -57,6 +61,7 @@ abstract class $SignUpFormStateCopyWith<$Res> {
   $Res call(
       {EmailAddress emailAddress,
       Password password,
+      PasswordConfirmation passwordConfirmation,
       bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
@@ -75,6 +80,7 @@ class _$SignUpFormStateCopyWithImpl<$Res>
   $Res call({
     Object? emailAddress = freezed,
     Object? password = freezed,
+    Object? passwordConfirmation = freezed,
     Object? showErrorMessages = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
@@ -88,6 +94,10 @@ class _$SignUpFormStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      passwordConfirmation: passwordConfirmation == freezed
+          ? _value.passwordConfirmation
+          : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+              as PasswordConfirmation,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -114,6 +124,7 @@ abstract class _$SignUpFormStateCopyWith<$Res>
   $Res call(
       {EmailAddress emailAddress,
       Password password,
+      PasswordConfirmation passwordConfirmation,
       bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
@@ -134,6 +145,7 @@ class __$SignUpFormStateCopyWithImpl<$Res>
   $Res call({
     Object? emailAddress = freezed,
     Object? password = freezed,
+    Object? passwordConfirmation = freezed,
     Object? showErrorMessages = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
@@ -147,6 +159,10 @@ class __$SignUpFormStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as Password,
+      passwordConfirmation: passwordConfirmation == freezed
+          ? _value.passwordConfirmation
+          : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+              as PasswordConfirmation,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -169,6 +185,7 @@ class _$_SignUpFormState implements _SignUpFormState {
   const _$_SignUpFormState(
       {required this.emailAddress,
       required this.password,
+      required this.passwordConfirmation,
       required this.showErrorMessages,
       required this.isSubmitting,
       required this.authFailureOrSuccessOption});
@@ -178,6 +195,8 @@ class _$_SignUpFormState implements _SignUpFormState {
   @override
   final Password password;
   @override
+  final PasswordConfirmation passwordConfirmation;
+  @override
   final bool showErrorMessages;
   @override
   final bool isSubmitting;
@@ -186,7 +205,7 @@ class _$_SignUpFormState implements _SignUpFormState {
 
   @override
   String toString() {
-    return 'SignUpFormState(emailAddress: $emailAddress, password: $password, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'SignUpFormState(emailAddress: $emailAddress, password: $password, passwordConfirmation: $passwordConfirmation, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -199,6 +218,9 @@ class _$_SignUpFormState implements _SignUpFormState {
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
                     .equals(other.password, password)) &&
+            (identical(other.passwordConfirmation, passwordConfirmation) ||
+                const DeepCollectionEquality().equals(
+                    other.passwordConfirmation, passwordConfirmation)) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 const DeepCollectionEquality()
                     .equals(other.showErrorMessages, showErrorMessages)) &&
@@ -217,6 +239,7 @@ class _$_SignUpFormState implements _SignUpFormState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(emailAddress) ^
       const DeepCollectionEquality().hash(password) ^
+      const DeepCollectionEquality().hash(passwordConfirmation) ^
       const DeepCollectionEquality().hash(showErrorMessages) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
       const DeepCollectionEquality().hash(authFailureOrSuccessOption);
@@ -231,6 +254,7 @@ abstract class _SignUpFormState implements SignUpFormState {
   const factory _SignUpFormState(
       {required EmailAddress emailAddress,
       required Password password,
+      required PasswordConfirmation passwordConfirmation,
       required bool showErrorMessages,
       required bool isSubmitting,
       required Option<Either<AuthFailure, Unit>>
@@ -240,6 +264,9 @@ abstract class _SignUpFormState implements SignUpFormState {
   EmailAddress get emailAddress => throw _privateConstructorUsedError;
   @override
   Password get password => throw _privateConstructorUsedError;
+  @override
+  PasswordConfirmation get passwordConfirmation =>
+      throw _privateConstructorUsedError;
   @override
   bool get showErrorMessages => throw _privateConstructorUsedError;
   @override
