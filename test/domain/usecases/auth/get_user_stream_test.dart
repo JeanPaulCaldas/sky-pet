@@ -1,25 +1,31 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:sky_pet/domain/models/user_model.dart';
-import 'package:sky_pet/domain/usecases/auth/get_user_stream.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
+import 'package:sky_pet/domain/auth/user.dart';
+import 'package:sky_pet/domain/core/value_objects.dart';
+import 'package:sky_pet/domain/usecases/auth/get_auth_user.dart';
 
-import 'mock_login_repository.dart';
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
-  late GetUserStream usecase;
-  MockAuthRepository? mockRepository;
+  late GetAuthUser usecase;
+  late MockAuthRepository mockRepository;
+
+  final tUser = User(id: UniqueId());
 
   setUp(() {
     mockRepository = MockAuthRepository();
-    usecase = GetUserStream(mockRepository);
+    usecase = GetAuthUser(repository: mockRepository);
   });
 
   test('should emit User Stream with user empty', () {
     //arrange
-    when(mockRepository!.user).thenAnswer((_) => Stream.value(UserModel.empty));
+    when(() => mockRepository.user)
+        .thenAnswer((_) => Stream.value(some(tUser)));
     //act - assert
-    expectLater(usecase(), emits(UserModel.empty));
-    verify(mockRepository!.user).called(1);
+    expectLater(usecase(), emits(tUser));
+    verify(() => mockRepository.user).called(1);
     verifyNoMoreInteractions(mockRepository);
   });
 }

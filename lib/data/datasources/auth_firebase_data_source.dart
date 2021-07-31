@@ -1,69 +1,112 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sky_pet/domain/models/user_model.dart';
+import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sky_pet/domain/auth/auth_failure.dart';
+import 'package:sky_pet/domain/auth/user.dart' as d;
+import 'package:sky_pet/domain/auth/value_objects.dart';
+import 'package:sky_pet/domain/core/value_objects.dart';
 
 abstract class AuthFirebaseDataSource {
-  Future<void> credentialsSignIn(String email, String password);
-  Future<void> credentialsSignUp(String email, String password);
-  Future<UserModel> get currentUser;
-  Future<void> facebookSignIn();
-  Future<void> googleSignIn();
+  Stream<Option<d.User>> getSignedInUser();
+
+  Future<Either<AuthFailure, Unit>> signInWithCredentials({
+    required EmailAddress emailAddress,
+    required Password password,
+  });
+
+  Future<Either<AuthFailure, Unit>> signInWithGoogle();
+
+  Future<Either<AuthFailure, Unit>> signUpWithCredentials({
+    required EmailAddress emailAddress,
+    required Password password,
+  });
   Future<void> signOut();
-  Stream<UserModel> get user;
 }
 
 class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-  AuthFirebaseDataSourceImpl({required this.firebaseAuth});
-
-  @override
-  Future<void> credentialsSignIn(String email, String password) async {
-    await firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-  }
+  AuthFirebaseDataSourceImpl(
+      {required FirebaseAuth firebaseAuth, required GoogleSignIn googleSignIn})
+      : _firebaseAuth = firebaseAuth,
+        _googleSignIn = googleSignIn;
 
   @override
-  Future<void> credentialsSignUp(String email, String password) async {
-    await firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-  }
-
-  @override
-  // TODO: implement currentUser
-  Future<UserModel> get currentUser async =>
-      _getUserModel(firebaseAuth.currentUser);
-
-  @override
-  Future<void> facebookSignIn() {
-    // TODO: implement facebookSignIn
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> googleSignIn() {
-    // TODO: implement googleSignIn
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<UserModel> get user {
-    return firebaseAuth
+  Stream<Option<d.User>> getSignedInUser() {
+    return _firebaseAuth
         .authStateChanges()
-        .map((firebaseUser) => _getUserModel(firebaseUser));
+        .map((firebaseUser) => optionOf(firebaseUser?.toDomain));
   }
 
-  UserModel _getUserModel(User? firebaseUser) =>
-      firebaseUser == null ? UserModel.empty : firebaseUser.toUserModel;
+  @override
+  Future<Either<AuthFailure, Unit>> signInWithCredentials(
+      {required EmailAddress emailAddress, required Password password}) async {
+    final emailAddressStr = emailAddress.getOrCrash();
+    final passwordStr = password.getOrCrash();
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: emailAddressStr, password: passwordStr);
+      return right(unit);
+    } on PlatformException catch (e) {
+      return left(['user-not-found', 'wrong-password'].contains(e.code)
+          ? const AuthFailure.invalidCredentials()
+          : const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
+    try {
+      final googleSignInAccount = await _googleSignIn.signIn();
+      if (googleSignInAccount == null) {
+        return left(const AuthFailure.cancelledByUser());
+      }
+      final googleAuth = await googleSignInAccount.authentication;
+      final authCredential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+      await _firebaseAuth.signInWithCredential(authCredential);
+      return right(unit);
+    } on PlatformException catch (_) {
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    Future.wait([
+      _googleSignIn.signOut(),
+      _firebaseAuth.signOut(),
+    ]);
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> signUpWithCredentials(
+      {required EmailAddress emailAddress, required Password password}) async {
+    final emailAddressStr = emailAddress.getOrCrash();
+    final passwordStr = password.getOrCrash();
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: emailAddressStr, password: passwordStr);
+      return right(unit);
+    } on PlatformException catch (e) {
+      return left(e.code == 'email-already-in-use'
+          ? const AuthFailure.emailAlreadyInUse()
+          : const AuthFailure.serverError());
+    }
+  }
 }
 
 extension on User {
-  UserModel get toUserModel {
-    return UserModel(id: uid, email: email, name: displayName);
+  d.User get toDomain {
+    return d.User(
+      id: UniqueId.fromUniqueString(uid),
+      name: displayName,
+      email: email,
+    );
   }
 }

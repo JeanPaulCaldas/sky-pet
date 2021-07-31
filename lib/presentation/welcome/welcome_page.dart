@@ -6,17 +6,10 @@ import 'package:sky_pet/presentation/core/constants.dart';
 import 'package:sky_pet/presentation/sign_in/sign_in_page.dart';
 import 'package:sky_pet/presentation/signup/sign_up_screen.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  static String routeId = 'welcome';
-
-  @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Center(
@@ -24,16 +17,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Hero(
                   tag: 'logo',
-                  child: Container(
-                    child: Image.asset('assets/images/logo.png'),
+                  child: SizedBox(
                     height: size.width * 0.3,
+                    child: Image.asset('assets/images/logo.png'),
                   ),
                 ),
-                Text(
+                const Text(
                   'SKY-PET',
                   style: TextStyle(
                     fontSize: 45.0,
@@ -42,19 +34,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 AnimatedTextKit(
                   animatedTexts: [
-                    TyperAnimatedText('SIEMPRE CONTIGO',
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        speed: const Duration(milliseconds: 250),
-                        textAlign: TextAlign.start),
+                    TyperAnimatedText(
+                      'SIEMPRE CONTIGO',
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      speed: const Duration(milliseconds: 250),
+                    ),
                   ],
                   totalRepeatCount: 4,
                   pause: const Duration(milliseconds: 500),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             RoundedButton(

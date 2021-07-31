@@ -18,7 +18,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -26,13 +26,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Column(
               children: [
-                Text(
+                const Text(
                   'SIGN UP',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Container(
-                  child: Image.asset('assets/images/logo.png'),
+                SizedBox(
                   height: size.width * 0.4,
+                  child: Image.asset('assets/images/logo.png'),
                 ),
                 RoundedInputField(
                   hintText: 'Your Email',
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Navigator.pushNamed(context, SignInPage.routeId);
                   },
                 ),
-                OrDivider(),
+                const OrDivider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

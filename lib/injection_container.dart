@@ -4,15 +4,13 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sky_pet/core/network_info.dart';
 import 'package:sky_pet/data/datasources/auth_firebase_data_source.dart';
 import 'package:sky_pet/data/repositories/auth/auth_repository_impl.dart';
-import 'package:sky_pet/domain/repositories/auth_repository.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
 import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
 import 'package:sky_pet/domain/usecases/auth/facebook_sign_in.dart';
 import 'package:sky_pet/domain/usecases/auth/get_current_user.dart';
-import 'package:sky_pet/domain/usecases/auth/get_user_stream.dart';
+import 'package:sky_pet/domain/usecases/auth/get_auth_user.dart';
 import 'package:sky_pet/domain/usecases/auth/sign_out.dart';
-import 'package:sky_pet/presentation/app/bloc/app_bloc.dart';
-import 'package:sky_pet/presentation/login/bloc/auth_login_bloc.dart';
 import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
 
 import 'domain/usecases/auth/google_sign_in.dart';
@@ -21,15 +19,6 @@ final sl = GetIt.I;
 
 void init() {
   //! Features
-  sl.registerFactory(() => AppBloc(
-        getCurrentUser: sl(),
-        getUser: sl(),
-        signOut: sl(),
-      ));
-  sl.registerFactory(() => AuthLoginBloc(
-        credentialSignIn: sl(),
-        credentialSignUp: sl(),
-      ));
   sl.registerFactory(() => SignInCubit(
         credentialSignIn: sl(),
         googleSignIn: sl(),
@@ -39,7 +28,7 @@ void init() {
   // Use cases
   sl.registerLazySingleton(() => CredentialSignIn(repository: sl()));
   sl.registerLazySingleton(() => GetCurrentUser(repository: sl()));
-  sl.registerLazySingleton(() => GetUserStream(repository: sl()));
+  sl.registerLazySingleton(() => GetAuthUser(repository: sl()));
   sl.registerLazySingleton(() => CredentialSignUp(repository: sl()));
   sl.registerLazySingleton(() => SignOut(repository: sl()));
   sl.registerLazySingleton(() => GoogleSignIn(repository: sl()));
@@ -53,7 +42,7 @@ void init() {
 
   // Data sources
   sl.registerLazySingleton<AuthFirebaseDataSource>(
-      () => AuthFirebaseDataSourceImpl(firebaseAuth: sl()));
+      () => AuthFirebaseDataSourceImpl(firebaseAuth: sl(), googleSignIn: sl()));
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(

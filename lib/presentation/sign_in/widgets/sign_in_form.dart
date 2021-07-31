@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sky_pet/presentation/components/already_have_an_account_check.dart';
-import 'package:sky_pet/presentation/components/rounded_button.dart';
 import 'package:sky_pet/presentation/components/rounded_input_field.dart';
 import 'package:sky_pet/presentation/components/rounded_password_field.dart';
 import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
@@ -26,7 +25,7 @@ class SignInForm extends StatelessWidget {
             ),
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: size.width * 0.5,
                 child: Image.asset(
                   'assets/images/logo.png',

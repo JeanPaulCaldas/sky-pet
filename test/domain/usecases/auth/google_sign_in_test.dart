@@ -1,28 +1,29 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:sky_pet/domain/usecases/auth/google_sign_in.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
-import 'mock_login_repository.dart';
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
   late GoogleSignIn usecase;
-  MockAuthRepository? mockAuthRepository;
+  late MockAuthRepository mockAuthRepository;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
-    usecase = GoogleSignIn(mockAuthRepository);
+    usecase = GoogleSignIn(repository: mockAuthRepository);
   });
 
   test('should sign in with google', () async {
     //arrange
-    when(mockAuthRepository!.googleSignIn())
-        .thenAnswer((_) async => Right(Null));
+    when(() => mockAuthRepository.googleSignIn())
+        .thenAnswer((_) async => Right(unit));
     //act
-    final Either<Failure, void>? result = await usecase();
+    final result = await usecase();
     //assert
-    expect(result, Right(Null));
-    verify(mockAuthRepository!.googleSignIn());
+    expect(result, Right(unit));
+    verify(() => mockAuthRepository.googleSignIn());
     verifyNoMoreInteractions(mockAuthRepository);
   });
 }

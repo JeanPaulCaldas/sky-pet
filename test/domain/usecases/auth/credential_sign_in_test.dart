@@ -1,16 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
+import 'package:sky_pet/domain/auth/value_objects.dart';
 
-import 'mock_login_repository.dart';
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
   late CredentialSignIn usecase;
   late MockAuthRepository mockAuthRepository;
 
-  final tEmail = 'mail@mail.com';
-  final tPass = 'securePass';
+  final tEmail = EmailAddress('mail@mail.com');
+  final tPass = Password('securePass');
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
@@ -19,15 +21,16 @@ void main() {
 
   test('should sign in with credentials', () async {
     //arrange
-    when(mockAuthRepository!.credentialSignIn(any!, any!))
-        .thenAnswer((_) async => Right(Null));
+    when(() => mockAuthRepository.signInWithEmailAndPass(
+        email: any(), password: any())).thenAnswer((_) async => Right(unit));
 
     //act
-    final Either<Failure, void>? result = await usecase(tEmail, tPass);
+    final result = await usecase(tEmail, tPass);
 
     //assert
-    expect(result, Right(Null));
-    verify(mockAuthRepository!.credentialSignIn(tEmail, tPass));
+    expect(result, Right(unit));
+    verify(() => mockAuthRepository.signInWithEmailAndPass(
+        email: tEmail, password: tPass));
     verifyNoMoreInteractions(mockAuthRepository);
   });
 }

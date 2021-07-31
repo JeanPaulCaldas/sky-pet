@@ -9,18 +9,17 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Hero(
           tag: 'logo',
-          child: Container(
-            child: Image.asset('assets/images/logo.png'),
+          child: SizedBox(
             height: size.width * 0.3,
+            child: Image.asset('assets/images/logo.png'),
           ),
         ),
-        Text(
+        const Text(
           'SKY-PET',
           style: TextStyle(
             fontSize: 45.0,
@@ -29,12 +28,13 @@ class _BodyState extends State<Body> {
         ),
         AnimatedTextKit(
           animatedTexts: [
-            TyperAnimatedText('SIEMPRE CONTIGO',
-                textStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-                speed: const Duration(milliseconds: 250),
-                textAlign: TextAlign.start),
+            TyperAnimatedText(
+              'SIEMPRE CONTIGO',
+              textStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+              speed: const Duration(milliseconds: 250),
+            ),
           ],
           totalRepeatCount: 4,
           pause: const Duration(milliseconds: 500),

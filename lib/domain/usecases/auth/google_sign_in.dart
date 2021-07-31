@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:sky_pet/core/failures.dart';
-import 'package:sky_pet/domain/repositories/auth_repository.dart';
+import 'package:sky_pet/domain/auth/auth_failure.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
 class GoogleSignIn {
-  final AuthRepository repository;
+  final AuthRepository _repository;
 
-  GoogleSignIn({required this.repository});
+  GoogleSignIn({required AuthRepository repository}) : _repository = repository;
 
-  Future<Either<Failure, void>> call() async => await repository.googleSignIn();
+  Future<Either<AuthFailure, Unit>> call() async => _repository.googleSignIn();
 }

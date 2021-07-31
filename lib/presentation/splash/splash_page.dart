@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget {
         state.map(
           initial: (_) {},
           authenticated: (_) {},
-          unauthenticated: (_) => context.router.pushNamed(WelcomeScreen.name),
+          unauthenticated: (_) => context.router.pushNamed(WelcomeRoute.name),
         );
       },
       child: const Center(

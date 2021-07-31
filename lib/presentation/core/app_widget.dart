@@ -8,6 +8,7 @@ import 'package:sky_pet/presentation/routes/app_router.gr.dart';
 class AppWidget extends StatelessWidget {
   final _appRouter = AppRouter();
 
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [

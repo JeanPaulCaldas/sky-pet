@@ -32,12 +32,12 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   Future<void> signInWithCredentials() async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final x =
-        await credentialSignIn!('state.email.value, state.password.value', '');
-    x.fold((l) => emit(state.copyWith(status: FormzStatus.submissionFailure)),
-        (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)));
+    // if (!state.status.isValidated) return;
+    // emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    // final x =
+    //     await credentialSignIn!('state.email.value, state.password.value', '');
+    // x.fold((l) => emit(state.copyWith(status: FormzStatus.submissionFailure)),
+    //     (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)));
   }
 
   Future<void> signInWithGoogle() async {}

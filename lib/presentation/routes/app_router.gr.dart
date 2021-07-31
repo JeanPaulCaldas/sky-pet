@@ -9,7 +9,7 @@ import 'package:flutter/material.dart' as _i2;
 
 import '../sign_in/sign_in_page.dart' as _i5;
 import '../splash/splash_page.dart' as _i3;
-import '../welcome/welcome_screen.dart' as _i4;
+import '../welcome/welcome_page.dart' as _i4;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
@@ -22,10 +22,10 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return _i3.SplashPage();
         }),
-    WelcomeScreen.name: (routeData) => _i1.MaterialPageX<dynamic>(
+    WelcomeRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return _i4.WelcomeScreen();
+          return _i4.WelcomePage();
         }),
     SignInRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -37,7 +37,7 @@ class AppRouter extends _i1.RootStackRouter {
   @override
   List<_i1.RouteConfig> get routes => [
         _i1.RouteConfig(SplashRoute.name, path: '/'),
-        _i1.RouteConfig(WelcomeScreen.name, path: '/welcome-screen'),
+        _i1.RouteConfig(WelcomeRoute.name, path: '/welcome-page'),
         _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page')
       ];
 }
@@ -48,10 +48,10 @@ class SplashRoute extends _i1.PageRouteInfo {
   static const String name = 'SplashRoute';
 }
 
-class WelcomeScreen extends _i1.PageRouteInfo {
-  const WelcomeScreen() : super(name, path: '/welcome-screen');
+class WelcomeRoute extends _i1.PageRouteInfo {
+  const WelcomeRoute() : super(name, path: '/welcome-page');
 
-  static const String name = 'WelcomeScreen';
+  static const String name = 'WelcomeRoute';
 }
 
 class SignInRoute extends _i1.PageRouteInfo {

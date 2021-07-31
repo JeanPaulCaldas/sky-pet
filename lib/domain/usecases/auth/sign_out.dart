@@ -1,11 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:sky_pet/core/failures.dart';
-import 'package:sky_pet/domain/repositories/auth_repository.dart';
+import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
 class SignOut {
-  final AuthRepository repository;
+  final AuthRepository _repository;
 
-  SignOut({required this.repository});
+  SignOut({required AuthRepository repository}) : _repository = repository;
 
-  Future<Either<Failure, void>> call() async => await repository.signOut();
+  Future<void> call() async => _repository.signOut();
 }
