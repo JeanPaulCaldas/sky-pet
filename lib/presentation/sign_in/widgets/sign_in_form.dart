@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:sky_pet/application/auth/sign_in_form/cubit/sign_in_form_cubit.dart';
 import 'package:sky_pet/presentation/components/already_have_an_account_check.dart';
+import 'package:sky_pet/presentation/components/rounded_button.dart';
 import 'package:sky_pet/presentation/components/rounded_input_field.dart';
 import 'package:sky_pet/presentation/components/rounded_password_field.dart';
-import 'package:sky_pet/presentation/login/cubit/sign_in_cubit.dart';
 import 'package:sky_pet/presentation/routes/app_router.gr.dart';
 
 class SignInForm extends StatelessWidget {
@@ -14,9 +15,10 @@ class SignInForm extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return Form(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: ListView(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: SingleChildScrollView(
+        child: Column(
           children: [
             const Text(
               'LOGIN',
@@ -48,7 +50,7 @@ class SignInForm extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
     // return Scaffold(
     //   body: Center(
     //     child: SingleChildScrollView(
@@ -98,16 +100,16 @@ class SignInForm extends StatelessWidget {
 class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(
-        buildWhen: (previous, current) => 1 != 0,
-        /*previous.email != current.email,*/
+    return BlocBuilder<SignInFormCubit, SignInFormState>(
+        buildWhen: (previous, current) =>
+            previous.emailAddress != current.emailAddress,
         builder: (context, state) {
           return RoundedInputField(
             hintText: 'Tu e-mail',
             textInputType: TextInputType.emailAddress,
-            errorText: /*state.email.invalid ?*/ 'e-mail no válido',
+            errorText: state.showErrorMessages ? 'e-mail no válido' : '',
             onChanged: (value) =>
-                context.read<SignInCubit>().emailChanged(value),
+                context.read<SignInFormCubit>().emailChanged(value),
           );
         });
   }
@@ -116,14 +118,13 @@ class _EmailInput extends StatelessWidget {
 class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(
-        buildWhen: (previous, current) => 1 != 0,
-        /*previous.password != current.password,*/
+    return BlocBuilder<SignInFormCubit, SignInFormState>(
+        buildWhen: (previous, current) => previous.password != current.password,
         builder: (context, state) {
           return RoundedPasswordField(
-            errorText: 'contraseña no válida',
+            errorText: state.showErrorMessages ? 'contraseña no válida' : '',
             onChanged: (value) =>
-                context.read<SignInCubit>().passwordChanged(value),
+                context.read<SignInFormCubit>().passwordChanged(value),
           );
         });
   }
@@ -132,17 +133,15 @@ class _PasswordInput extends StatelessWidget {
 class _SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+    return BlocBuilder<SignInFormCubit, SignInFormState>(
       builder: (context, state) {
-        return const CircularProgressIndicator();
-        // return state.status.isSubmissionInProgress
-        //     ? const CircularProgressIndicator()
-        //     : RoundedButton(title: 'LOGIN', onPressed: () {}
-        //         // state.status.isValidated
-        //         //     ? () => context.read<SignInCubit>().signInWithCredentials()
-        //         //     : {},
-        //         );
+        return state.isSubmitting
+            ? const CircularProgressIndicator()
+            : RoundedButton(
+                title: 'LOGIN',
+                onPressed: () =>
+                    context.read<SignInFormCubit>().emailAndPassSignIn(),
+              );
       },
     );
   }

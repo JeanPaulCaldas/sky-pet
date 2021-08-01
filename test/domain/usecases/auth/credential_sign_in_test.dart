@@ -25,7 +25,7 @@ void main() {
         email: any(), password: any())).thenAnswer((_) async => Right(unit));
 
     //act
-    final result = await usecase(tEmail, tPass);
+    final result = await usecase(email: tEmail, password: tPass);
 
     //assert
     expect(result, Right(unit));

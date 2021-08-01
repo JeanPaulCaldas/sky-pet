@@ -32,14 +32,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPass(
       {required EmailAddress email, required Password password}) {
-    // TODO: implement signInWithEmailAndPass
-    throw UnimplementedError();
+    return _callDataSourceMethod(() => _firebaseDataSource
+        .signInWithCredentials(emailAddress: email, password: password));
   }
 
   @override
   Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+    return _firebaseDataSource.signOut();
   }
 
   @override
