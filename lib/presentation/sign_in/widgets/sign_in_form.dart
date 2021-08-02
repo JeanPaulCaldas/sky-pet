@@ -107,7 +107,7 @@ class _EmailInput extends StatelessWidget {
           return RoundedInputField(
             hintText: 'Tu e-mail',
             textInputType: TextInputType.emailAddress,
-            errorText: state.showErrorMessages ? 'e-mail no válido' : '',
+            //errorText: state.showErrorMessages ? 'e-mail no válido' : '',
             onChanged: (value) =>
                 context.read<SignInFormCubit>().emailChanged(value),
           );
