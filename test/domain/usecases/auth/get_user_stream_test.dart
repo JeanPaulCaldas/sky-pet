@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 import 'package:sky_pet/domain/auth/user.dart';
 import 'package:sky_pet/domain/core/value_objects.dart';
-import 'package:sky_pet/domain/usecases/auth/auth_user_state.dart';
+import 'package:sky_pet/domain/auth/usecases/auth_user_state.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 

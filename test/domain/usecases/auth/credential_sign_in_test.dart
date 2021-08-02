@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
+import 'package:sky_pet/domain/auth/usecases/credential_sign_in.dart';
 import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 import 'package:sky_pet/domain/auth/value_objects.dart';
 

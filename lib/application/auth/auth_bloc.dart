@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sky_pet/domain/auth/usecases/auth_user_state.dart';
+import 'package:sky_pet/domain/auth/usecases/sign_out.dart';
 import 'package:sky_pet/domain/auth/user.dart';
-import 'package:sky_pet/domain/usecases/auth/auth_user_state.dart';
-import 'package:sky_pet/domain/usecases/auth/sign_out.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

@@ -20,11 +20,11 @@ import 'data/datasources/auth_firebase_data_source.dart' as _i9;
 import 'data/repositories/auth/auth_repository_impl.dart' as _i11;
 import 'domain/auth/i_auth_facade.dart' as _i8;
 import 'domain/auth/i_auth_repository.dart' as _i10;
-import 'domain/usecases/auth/auth_user_state.dart' as _i12;
-import 'domain/usecases/auth/credential_sign_in.dart' as _i13;
-import 'domain/usecases/auth/credential_sign_up.dart' as _i14;
-import 'domain/usecases/auth/google_sign_in.dart' as _i16;
-import 'domain/usecases/auth/sign_out.dart' as _i18;
+import 'domain/auth/usecases/auth_user_state.dart' as _i12;
+import 'domain/auth/usecases/credential_sign_in.dart' as _i13;
+import 'domain/auth/usecases/credential_sign_up.dart' as _i14;
+import 'domain/auth/usecases/google_sign_in.dart' as _i16;
+import 'domain/auth/usecases/sign_out.dart' as _i18;
 import 'infrastructure/auth/firebase_auth_facade.dart' as _i15;
 import 'infrastructure/core/firebase_injectable_module.dart'
     as _i21; // ignore_for_file: unnecessary_lambdas

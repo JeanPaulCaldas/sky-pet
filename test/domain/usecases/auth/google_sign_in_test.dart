@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:sky_pet/domain/usecases/auth/google_sign_in.dart';
+import 'package:sky_pet/domain/auth/usecases/google_sign_in.dart';
 import 'package:sky_pet/domain/auth/i_auth_repository.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}

@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sky_pet/domain/auth/auth_failure.dart';
-import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
-import 'package:sky_pet/domain/usecases/auth/google_sign_in.dart';
+import 'package:sky_pet/domain/auth/usecases/credential_sign_up.dart';
+import 'package:sky_pet/domain/auth/usecases/google_sign_in.dart';
 import 'package:sky_pet/application/auth/sign_up_form/cubit/sign_up_form_cubit.dart';
 
 class MockCredentialSignUp extends Mock implements CredentialSignUp {}

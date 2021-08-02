@@ -3,8 +3,8 @@
 import 'package:mocktail/mocktail.dart';
 // import 'package:sky_pet/domain/auth/auth_failure.dart';
 // import 'package:sky_pet/domain/auth/value_objects.dart';
-import 'package:sky_pet/domain/usecases/auth/credential_sign_in.dart';
-import 'package:sky_pet/domain/usecases/auth/credential_sign_up.dart';
+import 'package:sky_pet/domain/auth/usecases/credential_sign_in.dart';
+import 'package:sky_pet/domain/auth/usecases/credential_sign_up.dart';
 //import 'package:bloc_test/bloc_test.dart';
 
 class MockEmailSignIn extends Mock implements CredentialSignIn {}

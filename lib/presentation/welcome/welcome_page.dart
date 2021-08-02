@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
               height: 48.0,
             ),
             RoundedButton(
-              title: 'LOG IN',
+              title: 'SIGN IN',
               onPressed: () => context.router.push(const SignInRoute()),
             ),
             RoundedButton(
